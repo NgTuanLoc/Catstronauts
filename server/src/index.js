@@ -2,12 +2,22 @@ const { ApolloServer } = require('apollo-server');
 const dotenv = require('dotenv');
 
 const { typeDefs } = require('./schema');
+const { resolvers } = require('./resolvers');
+const { TrackAPI } = require('./track-api');
 const { mocks } = require('./mockupData');
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
 
-const server = new ApolloServer({ typeDefs, mocks });
+const server = new ApolloServer({
+	typeDefs,
+	resolvers,
+	dataSources: () => {
+		return {
+			trackAPI: new TrackAPI(),
+		};
+	},
+});
 const start = async () => {
 	try {
 		server.listen(PORT, () => {
