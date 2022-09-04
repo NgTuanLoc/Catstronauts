@@ -11,6 +11,14 @@ const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
+	context: {
+		test: () => {
+			return 'test1';
+		},
+		test2: () => {
+			return 'test2';
+		},
+	},
 	dataSources: () => {
 		return {
 			trackAPI: new TrackAPI(),

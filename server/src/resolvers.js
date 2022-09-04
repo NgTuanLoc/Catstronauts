@@ -1,7 +1,10 @@
 const resolvers = {
 	Query: {
 		// returns an array of Tracks that will be used to populate the homepage grid of our web client
-		tracksForHome: (_, __, { dataSources }) => {
+		tracksForHome: async (_, __, { test, test2, dataSources }) => {
+			console.log(test());
+			console.log(test2());
+
 			return dataSources.trackAPI.getTracksForHome();
 		},
 
